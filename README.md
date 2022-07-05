@@ -93,6 +93,19 @@ services:
       - ./work/components/rabbitmq/config/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro  
     networks:
       - net-rabbitmq
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    ports:
+      - "${PHP_MY_ADMIN_PMA_PORT}:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_HOSTS: ${PHP_MY_PMA_HOSTS}
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - net-php
+      - net-mysql
 networks:
   net-php:
   net-mysql:
